@@ -4,48 +4,90 @@
 
 html {
   scroll-behavior: smooth;
+  background: #fffaf7;
 }
 
 body {
   @apply font-sans text-gray-800 bg-white;
+  background: radial-gradient(circle at top right, #fff0df 0, transparent 28rem), #fffaf7;
+  letter-spacing: -0.01em;
 }
 
 h1, h2, h3, h4 {
   @apply font-serif;
 }
 
+/* Google Translate adds a toolbar by default. The site keeps its own accessible
+   language switcher, so the provider's hidden widget must not change the layout. */
+iframe.goog-te-banner-frame,
+iframe.goog-te-banner-frame.skiptranslate,
+iframe.VIpgJd-ZVi9od-ORHb-OEVmcd,
+iframe[src*="translate.google"],
+.goog-te-banner-frame,
+.goog-te-banner-frame.skiptranslate,
+.VIpgJd-ZVi9od-aZ2wEe-wOHMyf,
+.goog-te-gadget,
+.goog-te-balloon-frame,
+iframe.goog-te-balloon-frame,
+#goog-gt-tt,
+.goog-tooltip,
+[class*="VIpgJd-yAWNEb-L7lbkb"] {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+}
+
+/* Remove Google's blue hover treatment without hiding the translated text. */
+.goog-text-highlight {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+html[lang="bn"] body {
+  font-family: "Noto Sans Bengali", "Hind Siliguri", ui-sans-serif, system-ui, sans-serif;
+}
+
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
   }
   .btn-primary {
-    @apply btn bg-primary-600 text-white hover:bg-primary-700 shadow-sm hover:shadow-md;
+    @apply btn bg-primary-600 text-white hover:bg-primary-700 shadow-lg shadow-primary-600/20 hover:-translate-y-0.5 hover:shadow-xl;
   }
   .btn-outline {
-    @apply btn border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white;
+    @apply btn border border-primary-200 bg-white text-primary-700 hover:border-primary-600 hover:bg-primary-600 hover:text-white hover:-translate-y-0.5 shadow-sm;
   }
   .btn-accent {
     @apply btn bg-accent-600 text-white hover:bg-accent-700 shadow-sm hover:shadow-md;
   }
   .section {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16;
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24;
   }
   .section-title {
-    @apply text-3xl md:text-4xl font-bold text-gray-900 mb-3;
+    @apply text-3xl md:text-5xl font-bold tracking-tight text-gray-950 mb-4;
   }
   .section-subtitle {
-    @apply text-gray-500 max-w-2xl mb-10;
+    @apply text-gray-500 max-w-2xl mb-10 text-base md:text-lg leading-relaxed;
   }
   .card {
-    @apply bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow duration-300;
+    @apply bg-white rounded-3xl shadow-sm border border-stone-100 overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-300;
   }
   .input {
-    @apply w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent;
+    @apply w-full rounded-xl border border-stone-200 bg-white px-4 py-3 focus:outline-none focus:ring-4 focus:ring-primary-100 focus:border-primary-500 transition-shadow;
   }
   .label {
     @apply block text-sm font-medium text-gray-700 mb-1;
   }
   .admin-card {
-    @apply bg-white rounded-xl shadow-sm border border-gray-100 p-6;
+    @apply bg-white rounded-2xl shadow-sm border border-slate-100 p-6 hover:shadow-md transition-shadow;
   }
 }
+
+.page-hero { @apply relative overflow-hidden bg-slate-950 text-white; }
+.page-hero::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 85% 10%, rgba(249, 115, 22, .8), transparent 24rem), radial-gradient(circle at 10% 100%, rgba(13, 148, 136, .55), transparent 30rem); }
+.eyebrow { @apply inline-flex items-center gap-2 rounded-full border border-primary-200 bg-primary-50 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.16em] text-primary-700; }
+.soft-grid { background-image: linear-gradient(rgba(234, 88, 12, .045) 1px, transparent 1px), linear-gradient(90deg, rgba(234, 88, 12, .045) 1px, transparent 1px); background-size: 28px 28px; }

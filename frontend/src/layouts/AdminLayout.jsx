@@ -15,6 +15,7 @@ import {
   HeartHandshake,
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext.jsx";
+import LanguageToggle from "../components/LanguageToggle.jsx";
 
 const links = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, end: true },
@@ -76,6 +77,9 @@ export default function AdminLayout() {
       </aside>
       <main className="flex-1 overflow-x-hidden">
         <div className="p-6 lg:p-8">
+          <div className="mb-5 flex justify-end">
+            <LanguageToggle />
+          </div>
           <Outlet />
         </div>
       </main>
