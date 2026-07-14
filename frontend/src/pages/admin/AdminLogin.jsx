@@ -26,9 +26,18 @@ export default function AdminLogin() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900 px-4">
       <div className="w-full max-w-sm">
-        <div className="flex items-center justify-center gap-2 text-white font-bold text-xl mb-8">
-          <Heart className="w-6 h-6 fill-primary-500 text-primary-500" />
-          Sadhana Foundation
+        <div className="flex items-center justify-center gap-5 mb-10">
+          <img
+            src="/logoCreator_imagetologo.jpg"
+            alt="Sadhana Foundation"
+            className="w-36 h-36 object-contain"
+          />
+
+          <div className="leading-tight">
+            <h1 className="text-4xl font-bold text-white font-serif">
+              Sadhana Foundation
+            </h1>
+          </div>
         </div>
         <div className="bg-white rounded-2xl p-8 shadow-xl">
           <h1 className="text-xl font-semibold mb-1 text-center">Admin Login</h1>
@@ -36,11 +45,11 @@ export default function AdminLogin() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="label">Email</label>
-              <input required type="email" className="input" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+              <input required type="email" className="input border-black/25" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
             </div>
             <div>
               <label className="label">Password</label>
-              <input required type="password" className="input" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
+              <input required type="password" className="input border-black/25" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
             </div>
             <button disabled={submitting} className="btn-primary w-full">
               {submitting ? "Logging in..." : "Log In"}

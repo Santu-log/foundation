@@ -8,6 +8,7 @@ import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
 import authRoutes from "./routes/authRoutes.js";
 import adminAuthRoutes from "./routes/adminAuthRoutes.js";
+import adminProfileRoutes from "./routes/adminProfileRoutes.js";
 import eventRoutes from "./routes/eventRoutes.js";
 import galleryRoutes from "./routes/galleryRoutes.js";
 import donationRoutes from "./routes/donationRoutes.js";
@@ -42,6 +43,7 @@ app.get("/api/health", (req, res) => res.json({ success: true, message: "API is 
 app.use("/api/auth", authRoutes);
 // Admin auth
 app.use("/api/admin/auth", adminAuthRoutes);
+app.use("/api/admin/profile", adminProfileRoutes);
 
 // Resource routes (each contains both public + /admin sub-routes)
 app.use("/api/events", eventRoutes);

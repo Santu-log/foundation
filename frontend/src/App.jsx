@@ -39,6 +39,7 @@ import AdminBlogs from "./pages/admin/AdminBlogs.jsx";
 import AdminTestimonials from "./pages/admin/AdminTestimonials.jsx";
 import AdminMessages from "./pages/admin/AdminMessages.jsx";
 import AdminHomepageCMS from "./pages/admin/AdminHomepageCMS.jsx";
+import AdminProfile from "./pages/admin/AdminProfile.jsx";
 
 export default function App() {
   return (
@@ -86,6 +87,7 @@ export default function App() {
           }
         >
           <Route index element={<AdminDashboardHome />} />
+          <Route path="profile" element={<AdminProfile />} />
           <Route path="events" element={<AdminEvents />} />
           <Route path="gallery" element={<AdminGallery />} />
           <Route path="donations" element={<AdminDonations />} />

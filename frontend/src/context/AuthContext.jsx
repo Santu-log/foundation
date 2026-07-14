@@ -60,7 +60,17 @@ export const AuthProvider = ({ children }) => {
     return data;
   };
 
-  const logoutAdmin = () => {
+  // const logoutAdmin = () => {
+  //   localStorage.removeItem("adminToken");
+  //   setAdmin(null);
+  // };
+  const logoutAdmin = async () => {
+    try {
+      await api.post("/admin/auth/logout");
+    } catch (err) {
+      // Ignore logout API errors
+    }
+
     localStorage.removeItem("adminToken");
     setAdmin(null);
   };
@@ -71,9 +81,14 @@ export const AuthProvider = ({ children }) => {
         user,
         admin,
         loading,
+
+        setUser,
+        setAdmin,
+
         loginUser,
         registerUser,
         logoutUser,
+
         loginAdmin,
         logoutAdmin,
       }}

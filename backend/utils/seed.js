@@ -7,15 +7,17 @@ import Cause from "../models/Cause.js";
 const run = async () => {
   await connectDB();
 
-  const existingAdmin = await Admin.findOne({ email: "admin@sadhanafoundation.org" });
+  const existingAdmin = await Admin.findOne();
+
   if (!existingAdmin) {
     await Admin.create({
-      name: "Super Admin",
-      email: "admin@sadhanafoundation.org",
-      password: "Admin@12345",
+      name: process.env.DEFAULT_ADMIN_NAME,
+      email: process.env.DEFAULT_ADMIN_EMAIL,
+      password: process.env.DEFAULT_ADMIN_PASSWORD,
       role: "superadmin",
     });
-    console.log("Created default superadmin: admin@sadhanafoundation.org / Admin@12345");
+
+    console.log("Default admin created.");
   } else {
     console.log("Superadmin already exists, skipping.");
   }
