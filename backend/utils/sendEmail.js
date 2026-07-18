@@ -1,44 +1,94 @@
-import nodemailer from "nodemailer";
+// import nodemailer from "nodemailer";
 
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT) || 587,
-  secure: true,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
+// const transporter = nodemailer.createTransport({
+//   host: process.env.SMTP_HOST,
+//   port: Number(process.env.SMTP_PORT) || 587,
+//   secure: true,
+//   auth: {
+//     user: process.env.SMTP_USER,
+//     pass: process.env.SMTP_PASS,
+//   },
+// });
 
-/**
- * Send an email
- * @param {Object} options - { to, subject, html, text }
- */
+// /**
+//  * Send an email
+//  * @param {Object} options - { to, subject, html, text }
+//  */
+// export const sendEmail = async ({ to, subject, html, text }) => {
+//   try {
+//     console.log("========== EMAIL DEBUG ==========");
+//     console.log("Sending to:", to);
+//     console.log("SMTP Host:", process.env.SMTP_HOST);
+//     console.log("SMTP Port:", process.env.SMTP_PORT);
+//     console.log("SMTP User:", process.env.SMTP_USER);
+
+//     await transporter.verify();
+
+//     console.log("SMTP VERIFIED");
+    
+//     const info = await transporter.sendMail({
+//       from: process.env.EMAIL_FROM,
+//       to,
+//       subject,
+//       html,
+//       text,
+//     });
+    
+//     console.log("EMAIL SENT");
+//     console.log(info);
+    
+//   } catch (err) {
+//     console.error("EMAIL ERROR:");
+//     console.error(err);
+//   }
+// };
+
+import axios from "axios";
+
 export const sendEmail = async ({ to, subject, html, text }) => {
   try {
-    console.log("========== EMAIL DEBUG ==========");
+    console.log("========== BREVO EMAIL ==========");
     console.log("Sending to:", to);
-    console.log("SMTP Host:", process.env.SMTP_HOST);
-    console.log("SMTP Port:", process.env.SMTP_PORT);
-    console.log("SMTP User:", process.env.SMTP_USER);
 
-    await transporter.verify();
+    const response = await axios.post(
+      "https://api.brevo.com/v3/smtp/email",
+      {
+        sender: {
+          name: "Sadhana Foundation",
+          email: "sadhanafoundation0@gmail.com",
+        },
+        to: [
+          {
+            email: to,
+          },
+        ],
+        subject,
+        htmlContent: html,
+        textContent: text || "",
+      },
+      {
+        headers: {
+          accept: "application/json",
+          "content-type": "application/json",
+          "api-key": process.env.BREVO_API_KEY,
+        },
+      }
+    );
 
-    console.log("SMTP VERIFIED");
-    
-    const info = await transporter.sendMail({
-      from: process.env.EMAIL_FROM,
-      to,
-      subject,
-      html,
-      text,
-    });
-    
-    console.log("EMAIL SENT");
-    console.log(info);
-    
+    console.log("EMAIL SENT SUCCESSFULLY");
+    console.log(response.data);
+
+    return response.data;
   } catch (err) {
-    console.error("EMAIL ERROR:");
-    console.error(err);
+    console.error("BREVO EMAIL ERROR");
+
+    if (err.response) {
+      console.error("Status:", err.response.status);
+      console.error("Response:", err.response.data);
+    } else {
+      console.error(err.message);
+    }
+
+    throw err;
   }
 };
